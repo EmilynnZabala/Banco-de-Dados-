@@ -1,6 +1,6 @@
-drop database dbDistribuidoraSherek;
-create database dbDistribuidoraSherek;
-use dbDistribuidoraSherek;
+drop database dbDistribuidorSherek;
+create database dbDistribuidorSherek;
+use dbDistribuidorSherek;
 
 create table tbCliente(
 	IdCli int primary key auto_increment,
