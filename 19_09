@@ -517,6 +517,17 @@ select * from tbVenda  order by CodigoVenda desc limit 1;
 select * from tbVenda  order by CodigoVenda desc limit 1;
 
 
+-- EX 25
+
+delimiter $$
+create procedure spSelectCliente(vNomeCli varchar(200))
+begin
+	select * from tbCliente where NomeCli = vNomeCli;
+end $$
+
+call spSelectCliente("Disney Chaplin");
+
+
 select * from tbFornecedor;
 select * from tbCidade;
 select * from tbUF;
@@ -526,10 +537,11 @@ Select * from tbEndereco;
 select * from tbCliente;
 select * from tbClientePF;
 select * from tbClientePJ;
-select * from tbProdutoHistorico;
 select * from tbVenda;
 select * from tbCompra;
 select * from tbItemVenda;
+select * from tbProdutoHistorico;
 describe tbProduto;
+describe tbProdutoHistorico;
 drop trigger TGRInsertProdutoHistorico;
 drop procedure spInsertClientePJ;
