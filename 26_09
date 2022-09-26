@@ -1,0 +1,49 @@
+use dbDistribuidorSherek;
+
+
+
+
+--  EX 26
+describe tbProduto;
+describe tbItemVenda;
+delimiter //
+Create trigger trgUpdateProdutoItemVenda after insert on tbItemVenda
+for each row
+begin
+    update tbProduto set Qtd = Qtd - new.Qtd where CodigoBarras = new.CodigoBarras;
+end
+//
+
+
+
+-- EX 27
+call spSelectProduto();
+call spInsertVenda(5,"Paganada","26/09/2022",12345678910114,10.00,15,150.00,null);
+
+
+
+-- EX 28
+call spSelectProduto();
+
+
+
+-- EX 29
+describe tbCompra;
+describe tbCompraProduto;
+delimiter //
+Create trigger trgUpdateProdutoCompra after insert on tbCompraProduto
+for each row
+begin
+    update tbProduto set Qtd = Qtd + new.Qtd where CodigoBarras = new.CodigoBarras;
+end
+//
+
+
+
+-- EX 30
+call spInsertCompra(10548,"Amoroso e Doce",'10/09/2022',12345678910111,40.00,100,100,4000.00);
+
+
+
+-- EX 31
+call spSelectProduto();
