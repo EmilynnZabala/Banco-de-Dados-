@@ -1,0 +1,38 @@
+show tables;
+select * from tbcliente inner join tbclientepf on tbcliente.IdCli = tbclientepf.IdCli;
+
+-- EX 33 
+select *  from tbcliente inner join tbclientepj on tbcliente.IdCli = tbclientepj.IdCli;
+
+-- EX 34  
+select tbclientepj.IdCli, Nomecli, cnpj, ie,  tbcliente.IdCli 
+ from tbcliente 
+ inner join tbclientepj 
+ on tbcliente.IdCli = tbclientepj.IdCli;
+ 
+ -- EX 35 
+
+ select tbclientepf.IdCli as 'Código', Nomecli as 'Nome', cpf  as 'CPF', rg as 'RG', nasc as 'Data de Nascimento' 
+ from tbcliente 
+ inner join tbclientepf 
+ on tbcliente.IdCli = tbclientepf.IdCli;
+ 
+ -- EX 36  
+ 
+select * from tbcliente
+inner join tbClientepj
+on tbcliente.IdCli = tbClientepj.IdCli
+inner join tbendereco
+on tbcliente.cepcli = tbendereco.CEP;
+
+-- EX 37
+
+select * from tbcliente
+inner join tbendereco 
+on tbcliente.cepcli = tbendereco.CEP
+inner join tbBairro
+on tbendereco.IdBairro = tbBairro.IdBairro
+Inner join tbCidade 
+on tbendereco.IdCidade = tbcidade.IdCidade 
+inner join tbuf 
+on tbendereco.IdUF = tbUF.IdUF;
