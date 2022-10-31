@@ -28,12 +28,15 @@ on tbcliente.cepcli = tbendereco.CEP;
 
 -- EX 37
 
-select * from tbcliente
-inner join tbendereco 
+select tbclientepj.IdCli, NomeCli, NumEnd, CompEnd, CepCli as 'CEP', Bairro, Cidade, UF
+from tbcliente
+inner join tbClientepj
+on tbcliente.IdCli = tbClientepj.IdCli
+inner join tbendereco
 on tbcliente.cepcli = tbendereco.CEP
 inner join tbBairro
 on tbendereco.IdBairro = tbBairro.IdBairro
-Inner join tbCidade 
-on tbendereco.IdCidade = tbcidade.IdCidade 
-inner join tbuf 
+Inner join tbCidade
+on tbendereco.IdCidade = tbcidade.IdCidade
+inner join tbuf
 on tbendereco.IdUF = tbUF.IdUF;
