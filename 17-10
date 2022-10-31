@@ -1,3 +1,4 @@
+-- EX 32
 show tables;
 select * from tbcliente inner join tbclientepf on tbcliente.IdCli = tbclientepf.IdCli;
 
@@ -17,7 +18,7 @@ select tbclientepj.IdCli, Nomecli, cnpj, ie,  tbcliente.IdCli
  inner join tbclientepf 
  on tbcliente.IdCli = tbclientepf.IdCli;
  
- -- EX - 36  
+ -- EX 36  
  
 select * from tbcliente
 inner join tbClientepj
