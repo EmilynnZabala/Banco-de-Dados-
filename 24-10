@@ -1,0 +1,69 @@
+use dbDistribuidorSherek;
+
+-- EX 38
+delimiter $$
+create procedure spSelectClientePFisicaId(vIdCli int)
+begin
+	select tbCliente.IdCli as "Código", 
+    NomeCli as "Nome",
+    CPF as "CPF", 
+    RG as "RG", 
+    Nasc as "Data de Nascimento", 
+    logradouro as "Logradouro", 
+    NumEnd as "Número", 
+    CompEnd as "Complemento", 
+    Bairro as "Bairro", 
+    Cidade as "Cidade", 
+    Uf as "UF"
+	from tbcliente 
+	inner join tbclientepf on tbcliente.IdCli = tbclientepf.IdCli
+    inner join tbendereco on tbendereco.CEP = tbcliente.CepCli
+	inner join tbbairro on tbendereco.IdBairro = tbbairro.IdBairro
+	inner join tbcidade on tbendereco.IdCidade = tbcidade.IdCidade
+	inner join tbUf on tbendereco.IdUf = tbUf.IdUf
+    where tbcliente.idCli = vIdCli;
+end
+$$
+call spSelectClientePFisicaId(2);
+call spSelectClientePFisicaId(5);
+
+-- EX 39
+select * from tbProduto
+left join tbItemVenda 
+on tbproduto.CodigoBarras = tbItemVenda.CodigoBarras;
+
+-- EX 40
+
+select NotaFiscalPedido, DataCompra, ValorTotal, QtdTotal, tbCompra.IdFornecedor as "Codigo",
+tbFornecedor.IdFornecedor as "Codigo", CNPJ, 
+NomeFornecedor as "Nome", Telefone from tbCompra 
+right join tbFornecedor 
+on tbCompra.IdFornecedor = tbFornecedor.IdFornecedor;
+
+-- EX 41
+select tbFornecedor.IdFornecedor as "Codigo", 
+CNPJ, NomeFornecedor as "Nome", Telefone 
+from tbCompra 
+right join tbFornecedor 
+on tbCompra.IdFornecedor = tbFornecedor.IdFornecedor
+where tbCompra.IdFornecedor IS NULL; -- right obrigatório :) 
+
+-- EX 42
+select tbCliente.IdCli, NomeCli, DataVenda,
+tbProduto.CodigoBarras, tbProduto.NomeProd as "Nome", ValorItem from tbCliente
+left join tbVenda on tbCliente.IdCli = tbVenda.IdCli
+left join tbItemVenda 
+on tbVenda.CodigoVenda = tbItemVenda.CodigoVenda 
+left join tbProduto 
+on tbItemVenda.CodigoBarras = tbProduto.CodigoBarras
+where tbVenda.IdCli order by NomeCli; -- ordem alfabética :) 
+
+-- EX 43
+select Bairro from tbBairro
+left join tbEndereco 
+on tbBairro.IdBairro = tbEndereco.IdBairro
+left join tbCliente 
+on tbEndereco.CEP = tbCliente.CepCli
+left join tbVenda 
+on tbCliente.IdCli = tbVenda.IdCli
+where tbVenda.IdCli is null;
