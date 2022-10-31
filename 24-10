@@ -59,7 +59,7 @@ on tbItemVenda.CodigoBarras = tbProduto.CodigoBarras
 where tbVenda.IdCli order by NomeCli; -- ordem alfabética :) 
 
 -- EX 43
-select distinc Bairro from tbBairro
+select distinct Bairro from tbBairro
 left join tbEndereco 
 on tbBairro.IdBairro = tbEndereco.IdBairro
 left join tbCliente 
