@@ -1,0 +1,72 @@
+-- EX 44
+create view vwtbfornecedor as select 
+IdFornecedor as 'Codigo', NomeFornecedor as 'Fornecedor',
+telefone as 'Telefone' from tbfornecedor;
+
+select * from vwtbfornecedor;
+
+-- EX 45
+select Fornecedor as 'Nome', telefone as 'Telefone' from vwtbfornecedor; 
+
+
+-- EX 46
+create view vwtbclientepj as 
+select tbcliente.IdCli, NomeCli, CepCli, Logradouro, NumEnd, CompEnd, Bairro, Cidade, UF from tbcliente
+inner join tbClientepj
+on tbcliente.IdCli = tbClientepj.IdCli
+inner join tbendereco
+on tbcliente.cepcli = tbendereco.CEP
+inner join tbBairro
+on tbendereco.IdBairro = tbBairro.IdBairro
+Inner join tbCidade
+on tbendereco.IdCidade = tbcidade.IdCidade
+inner join tbuf
+on tbendereco.IdUF = tbUF.IdUF;
+
+select * from vwtbclientepj;
+
+
+-- EX 47
+select IdCli as 'Codigo', NomeCli as 'Cliente', CepCli as 'CEP', Logradouro as 'Endereço',
+NumEnd as 'Número', CompEnd as 'Complemento', Bairro, Cidade, UF from vwtbclientepj; 
+
+
+-- EX 48
+create  view vwclientepf as
+select tbCliente.IdCli , 
+    NomeCli, CPF , RG , RG_Dig, Nasc , logradouro , NumEnd , CompEnd , Bairro , Cidade , Uf 
+	from tbcliente 
+	inner join tbclientepf on tbcliente.IdCli = tbclientepf.IdCli
+    inner join tbendereco on tbendereco.CEP = tbcliente.CepCli
+	inner join tbbairro on tbendereco.IdBairro = tbbairro.IdBairro
+	inner join tbcidade on tbendereco.IdCidade = tbcidade.IdCidade
+	inner join tbUf on tbendereco.IdUf = tbUf.IdUf;
+    
+select * from vwclientepf;  
+
+-- EX 49
+select IdCli as 'Código', NomeCli as 'Cliente', CPF , RG , RG_Dig as 'Dig', Nasc as 'Nascimento' from vwclientepf;
+
+
+-- EX 50
+
+alter view vwtbclientepj as 
+select tbcliente.IdCli, NomeCli, CNPJ, CepCli, IE, Logradouro, NumEnd, CompEnd, Bairro, Cidade, UF from tbcliente
+inner join tbClientepj
+on tbcliente.IdCli = tbClientepj.IdCli
+inner join tbendereco
+on tbcliente.cepcli = tbendereco.CEP
+inner join tbBairro
+on tbendereco.IdBairro = tbBairro.IdBairro
+Inner join tbCidade
+on tbendereco.IdCidade = tbcidade.IdCidade
+inner join tbuf
+on tbendereco.IdUF = tbUF.IdUF;
+
+select * from vwtbclientepj;
+
+-- EX 51
+
+select IdCli, NomeCli, CepCli, Logradouro, NumEnd, CompEnd, Bairro, Cidade, Uf from vwtbclientepj
+union
+select IdCli, NomeCli, CepCli, Logradouro, NumEnd, CompEnd, Bairro, Cidade, Uf from vwclientepf;
